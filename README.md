@@ -1,24 +1,31 @@
-# test-demo
+# Toast()
 
-## Project setup
-```
-npm install
-```
+```js
+this.$toast.loading({
+    duration: 0,
+    message: '加载中...',
+    forbidClick: true,
+    loadingType: 'spinner'
+});
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+this.$toast({ 
+    message: '操作成功！', 
+    duration: 1600
+    }
+);
 
-### Compiles and minifies for production
-```
-npm run build
-```
+this.$toast.clear();
 
-### Lints and fixes files
-```
-npm run lint
-```
+// 主要通知
+this.$notify({ type: 'primary', message: '通知内容' });
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+// 成功通知
+Notify({ type: 'success', message: '通知内容' });
+
+// 危险通知
+Notify({ type: 'danger', message: '通知内容'， duration: 1000 });
+
+// 警告通知
+Notify({ type: 'warning', message: '通知内容' });
+
+```

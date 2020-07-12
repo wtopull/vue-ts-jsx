@@ -1,9 +1,7 @@
-import Vue from 'vue';
+// import Vue from 'vue';
 import router from '@/router';
 import axios from 'axios';
-import qs from 'qs';
 import { Toast } from 'vant';
-
 
 // 设置默认请求头
 axios.defaults.headers = {
@@ -30,9 +28,37 @@ axios.interceptors.response.use((config: any) => {
 }, (error: any) => {
     return Promise.reject(error);
 });
-// post方法，绑定到vue实例上面的 $post
-Vue.prototype.$post = (url: any, params: any) => {
-    console.log(params.loading);
+// post方法，绑定到vue实例上面的 $postData
+// Vue.prototype.$postData = (url: any, params: any) => {
+//     if (params.loading) {
+//         Toast.loading({
+//             message: '加载中...',
+//             forbidClick: true,
+//             loadingType: 'spinner',
+//         });
+//     }
+//     return new Promise((resolve, reject) => {
+//         axios.post(url, JSON.stringify(params)).then((res: any) => {
+//             Toast.clear();
+//             resolve(res);
+//         }).catch((err: any) => {
+//             reject(err);
+//         });
+//     });
+// };
+// // get方法，绑定到vue实例上面的 $getData
+// Vue.prototype.$getData = (url: any, params: any) => {
+//     return new Promise((resolve, reject) => {
+//         axios.get(url, { params: params }).then((res: any) => {
+//             resolve(res);
+//         }).catch((err: any) => {
+//             reject(err);
+//         });
+//     });
+// };
+
+
+const postData = (url: any, params: any) => {
     if (params.loading) {
         Toast.loading({
             message: '加载中...',
@@ -41,7 +67,7 @@ Vue.prototype.$post = (url: any, params: any) => {
         });
     }
     return new Promise((resolve, reject) => {
-        axios.post(url, qs.stringify(params)).then((res: any) => {
+        axios.post(url, JSON.stringify(params)).then((res: any) => {
             Toast.clear();
             resolve(res);
         }).catch((err: any) => {
@@ -49,8 +75,8 @@ Vue.prototype.$post = (url: any, params: any) => {
         });
     });
 };
-// get方法，绑定到vue实例上面的 $get
-Vue.prototype.$get = (url: any, params: any) => {
+
+const getData = (url: any, params: any) => {
     return new Promise((resolve, reject) => {
         axios.get(url, { params: params }).then((res: any) => {
             resolve(res);
@@ -59,3 +85,8 @@ Vue.prototype.$get = (url: any, params: any) => {
         });
     });
 };
+
+export default {
+    postData,
+    getData
+}
